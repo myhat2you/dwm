@@ -1,2 +1,2 @@
 # dwm
-Minimalist dynamic window manager for Linux
+My buld of dwm
