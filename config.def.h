@@ -1,8 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const Gap default_gap        = {.isgap = 0, .realgap = 10, .gappx = 10};
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const Gap default_gap        = {.isgap = 1, .realgap = 10, .gappx = 10};
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -59,7 +59,7 @@ typedef struct {
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x25", "-e", "tmux", NULL };
-const char *spcmd2[] = {"st", "-n", "spcalc", "-g", "28x08", "-e", "calc", NULL };
+const char *spcmd2[] = {"st", "-n", "spcalc", "-g", "40x20", "-e", "calc", NULL };
 const char *spcmd3[] = {"keepassxc", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
@@ -114,6 +114,16 @@ static const char *termcmd[]  = { "st", NULL };
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function          argument */
+	// spawn and kill
+	{ MODKEY,                       XK_Return, spawn,            {.v = termcmd } },
+	{ MODKEY,                       XK_u,      togglescratch,    {.ui = 0 } },
+	{ MODKEY,                       XK_a,      togglescratch,    {.ui = 1 } },
+	{ MODKEY,                       XK_d,      spawn,            {.v = dmenucmd } },
+	{ MODKEY,                       XK_grave,  spawn,            {.v = (const char*[]){ "dmenuunicode", NULL } } },
+	{ MODKEY,                       XK_q,      killclient,       {0} },
+	{ MODKEY|ShiftMask,             XK_q,      quit,             {0} },
+	{ MODKEY|Mod1Mask,              XK_q,      xrdb,             {.v = NULL } },
+	// layout
 	{ MODKEY,                       XK_Tab,    view,             {0} },
 	{ MODKEY,                       XK_f,      setlayout,        {.v = &layouts[1]} },
 	{ MODKEY|Mod1Mask,   		XK_comma,  cyclelayout,      {.i = -1 } },
@@ -121,16 +131,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  setlayout,        {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating,   {0} },
 	{ MODKEY,                       XK_b,      togglebar,        {0} },
-	// spawn and kill
-	{ MODKEY,                       XK_Return, spawn,            {.v = termcmd } },
-	{ MODKEY,                       XK_u,      togglescratch,    {.ui = 0 } },
-	{ MODKEY,                       XK_a,      togglescratch,    {.ui = 1 } },
-	{ MODKEY,                       XK_d,      spawn,            {.v = dmenucmd } },
-	{ MODKEY,                       XK_q,      killclient,       {0} },
-	{ MODKEY|ShiftMask,             XK_q,      quit,             {0} },
-	{ MODKEY|Mod1Mask,              XK_q,      xrdb,             {.v = NULL } },
 	// stack position
-	{ MODKEY,                       XK_Return, zoom,             {0} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,             {0} },
 	{ MODKEY,                       XK_j,      focusstack,       {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,       {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,        {.i = +1 } },
