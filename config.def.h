@@ -62,8 +62,8 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x25", "-e", "tmux", NULL };
-const char *spcmd2[] = {"st", "-n", "spcalc", "-g", "80x15", "-e", "calc", NULL };
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x25", NULL };
+const char *spcmd2[] = {"st", "-n", "spcalc", "-f", "80x15", "-e", "calc", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",       spcmd1},
@@ -94,7 +94,7 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[=]",      tile },    /* first entry is default */
 	{ "[M]",      monocle },
 	{ "[B]",      bstack },
 	{ NULL,       NULL },
