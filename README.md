@@ -1,5 +1,7 @@
-# dwm
-My buld of dwm
+# My dwm build
+Keyboard shortcuts and feature details can be found in [mars.mom](mars.mom) or through the <kbd>F1</kbd> shortcut.
+
+Inspired by [lukesmith](https://github.com/lukesmithxyz/dwm)'s version of dwm.
 
 ## Patches and features
 - [cyclelayouts](https://dwm.suckless.org/patches/cyclelayouts/)
