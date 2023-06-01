@@ -17,7 +17,7 @@ static const int showbar            = 1;  /* 0 means no bar */
 static const int topbar             = 1;  /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10:bold", "Font Awesome 6 Free Solid:size=10" };
 static const char dmenufont[]       = "monospace:size=10:bold";
-static char normbgcolor[]           = "#222222";
+static char normbgcolor[]           = "#222628";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
