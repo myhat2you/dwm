@@ -17,7 +17,7 @@ static const int showbar            = 1;  /* 0 means no bar */
 static const int topbar             = 1;  /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10:bold", "Font Awesome 6 Free Solid:size=10" };
 static const char dmenufont[]       = "monospace:size=10:bold";
-static char normbgcolor[]           = "#222628";
+static char normbgcolor[]           = "#0B1214";
 static char normbordercolor[]       = "#444444";
 static char normfgcolor[]           = "#bbbbbb";
 static char selfgcolor[]            = "#eeeeee";
@@ -119,7 +119,7 @@ static const Layout layouts[] = {
 #define STATUSBAR "dwmblocks"
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+//static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 #include "movestack.c"
@@ -189,23 +189,23 @@ static const Key keys[] = {
 	{ MODKEY,               XK_e,            spawn,          SHCMD(TERMINAL " -e neomutt ; rmdir ~/.abook") },
 	{ MODKEY|ShiftMask,     XK_e,            spawn,          SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
 	// music
-	{ MODKEY|ShiftMask,     XK_a,            spawn,          SHCMD(TERMINAL " -e pulsemixer; kill -41 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_a,            spawn,          SHCMD(TERMINAL " -e pulsemixer; kill -43 $(pidof dwmblocks)") },
 	{ MODKEY,               XK_m,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
-	{ MODKEY,               XK_p,            spawn,          {.v = (const char*[]){ "mpc", "toggle", NULL } } },
-	{ MODKEY,               XK_comma,        spawn,          {.v = (const char*[]){ "mpc", "prev", NULL } } },
-	{ MODKEY,               XK_period,       spawn,          {.v = (const char*[]){ "mpc", "next", NULL } } },
-	{ MODKEY,               XK_bracketleft,  spawn,          {.v = (const char*[]){ "mpc", "seek", "-10", NULL } } },
-	{ MODKEY,               XK_bracketright, spawn,          {.v = (const char*[]){ "mpc", "seek", "+10", NULL } } },
-	{ MODKEY|ShiftMask,     XK_comma,        spawn,          {.v = (const char*[]){ "mpc", "seek", "0%", NULL } } },
-	{ MODKEY|ShiftMask,     XK_period,       spawn,          {.v = (const char*[]){ "mpc", "repeat", NULL } } },
-	{ MODKEY|ShiftMask,     XK_bracketleft,  spawn,          {.v = (const char*[]){ "mpc", "seek", "-60", NULL } } },
-	{ MODKEY|ShiftMask,     XK_bracketright, spawn,          {.v = (const char*[]){ "mpc", "seek", "+60", NULL } } },
-	{ MODKEY|ShiftMask,     XK_m,            spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -41 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_p,            spawn,          SHCMD("mpc pause; pauseallmpv") },
-	{ MODKEY,               XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -41 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -41 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -41 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -41 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_p,            spawn,          SHCMD("mpc toggle; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_slash,        spawn,          SHCMD("mpc clear; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_comma,        spawn,          SHCMD("mpc prev; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_period,       spawn,          SHCMD("mpc next; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_bracketleft,  spawn,          SHCMD("mpc seek -10; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_bracketright, spawn,          SHCMD("mpc seek +10; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_comma,        spawn,          SHCMD("mpc seek 0%; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_period,       spawn,          SHCMD("mpc repeat; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_bracketleft,  spawn,          SHCMD("mpc seek -60; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_bracketright, spawn,          SHCMD("mpc seek +60; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_m,            spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -43 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -43 $(pidof dwmblocks)") },
+	{ MODKEY,               XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -43 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -43 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,     XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -43 $(pidof dwmblocks)") },
 	// tags
 	/*
 	{ MODKEY|ControlMask,           XK_0,      tag,              {.ui = ~0 } }, // ???
