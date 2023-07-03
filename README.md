@@ -14,10 +14,12 @@ Applies the monocle layout with the focused client on top and hides the bar <kbd
 Move windows up the stack manually <kbd>super-shift-J/K</kbd>.
 - [pertag](https://dwm.suckless.org/patches/pertag/):
 Enables one layout per tag in contrast of one layout for all tags.
-- [preserveonrestart](https://dwm.suckless.org/patches/preserveonrestart/)
+- [preserveonrestart](https://dwm.suckless.org/patches/preserveonrestart/):
 preserves clients on old tags when dwm is restarted <kbd>super-shift-Q</kbd>.
-- [removeborder](https://dwm.suckless.org/patches/removeborder/)
+- [removeborder](https://dwm.suckless.org/patches/removeborder/):
 Remove the border when there is only one window visible.
+- [restartsig](https://dwm.suckless.org/patches/restartsig/):
+Restart DWM via <kbd>super-alt+Q</kbd> or by <kbd>kill -HUP dwmpid</kbd>.
 - [scratchpads](https://dwm.suckless.org/patches/scratchpads/):
 Enables multiple scratchpads, each with one asigned window <kbd>super-U/A</kbd>.
 - [status2d](https://dwm.suckless.org/patches/status2d/):
