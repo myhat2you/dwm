@@ -159,7 +159,7 @@ static const Key keys[] = {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	{ MODKEY,               XK_F9,           spawn,          {.v = (const char*[]){ "mounter", NULL } } },
 	{ MODKEY,               XK_F10,          spawn,          {.v = (const char*[]){ "unmounter", NULL } } },
-	{ MODKEY,               XK_F11,          spawn,          SHCMD("xset dpms force off") },
+	{ MODKEY,               XK_F11,          xrdb,           {.v = NULL } },
 	{ MODKEY,               XK_F12,          spawn,          SHCMD("slock") },
 	// recording
 	{ 0,                    XK_Print,        spawn,          SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
@@ -182,7 +182,7 @@ static const Key keys[] = {
 	{ MODKEY,               XK_BackSpace,    spawn,          {.v = (const char*[]){ "sysact", NULL } } },
 	{ MODKEY,               XK_q,            killclient,     {0} },
 	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
-	{ MODKEY|Mod1Mask,      XK_q,            xrdb,           {.v = NULL } },
+	{ MODKEY|Mod1Mask,      XK_q,            quit,           {1} },
 	// media
 	{ MODKEY,               XK_c,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
 	{ MODKEY|ShiftMask,     XK_n,            spawn,          SHCMD(TERMINAL " -e newsboat") },
