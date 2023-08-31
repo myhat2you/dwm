@@ -3,6 +3,7 @@
 /* Constants */
 #define TERMINAL "st"
 #define TERMCLASS "St"
+#define STATUSBAR "dwmblocks"
 #define BROWSER "librewolf"
 
 /* appearance */
@@ -15,30 +16,32 @@ static const unsigned int gappov    = 15; /* vert outer gap between windows and 
 static       int smartgaps          = 0;  /* 1 means no outer gap when there is only one window */
 static const int showbar            = 1;  /* 0 means no bar */
 static const int topbar             = 1;  /* 0 means bottom bar */
-static const char *fonts[]          = { "monospace:size=12:bold", "Font Awesome 6 Free Solid:size=10" };
+/* fonts */
+static const char *fonts[]          = { "monospace:size=10:bold", "Font Awesome 6 Free Solid:size=10" };
 static const char dmenufont[]       = "monospace:size=12:bold";
-static char normbgcolor[]           = "#0B1214";
-static char normbordercolor[]       = "#444444";
-static char normfgcolor[]           = "#bbbbbb";
-static char selfgcolor[]            = "#eeeeee";
-static char selbordercolor[]        = "#005577";
-static char selbgcolor[]            = "#005577";
-static char termcol0[] = "#000000"; /* black   */
-static char termcol1[] = "#ff0000"; /* red     */
-static char termcol2[] = "#33ff00"; /* green   */
-static char termcol3[] = "#ff0099"; /* yellow  */
-static char termcol4[] = "#0066ff"; /* blue    */
-static char termcol5[] = "#cc00ff"; /* magenta */
-static char termcol6[] = "#00ffff"; /* cyan    */
-static char termcol7[] = "#d0d0d0"; /* white   */
+/* colors */
+static char normbgcolor[]           = "#0B1214"; /* bar background */
+static char normfgcolor[]           = "#BBBBBB"; /* bar foreground */
+static char normbordercolor[]       = "#222222"; /* unfocused border */
+static char selbgcolor[]            = "#00608D"; /* selected background */
+static char selfgcolor[]            = "#FAFAFA"; /* selected foreground */
+static char selbordercolor[]        = "#0088AF"; /* focused border */
+static char termcol0[] = "#1C1C1C"; /* black   */
+static char termcol1[] = "#E4444F"; /* red     */
+static char termcol2[] = "#40C275"; /* green   */
+static char termcol3[] = "#D75F5F"; /* yellow  */
+static char termcol4[] = "#0088AF"; /* blue    */
+static char termcol5[] = "#E84D70"; /* magenta */
+static char termcol6[] = "#1A9898"; /* cyan    */
+static char termcol7[] = "#A8A8A8"; /* white   */
 static char termcol8[]  = "#808080"; /* black   */
-static char termcol9[]  = "#ff0000"; /* red     */
-static char termcol10[] = "#33ff00"; /* green   */
-static char termcol11[] = "#ff0099"; /* yellow  */
-static char termcol12[] = "#0066ff"; /* blue    */
-static char termcol13[] = "#cc00ff"; /* magenta */
-static char termcol14[] = "#00ffff"; /* cyan    */
-static char termcol15[] = "#ffffff"; /* white   */
+static char termcol9[]  = "#FF546A"; /* red     */
+static char termcol10[] = "#40D885"; /* green   */
+static char termcol11[] = "#FF755F"; /* yellow  */
+static char termcol12[] = "#5FAFD7"; /* blue    */
+static char termcol13[] = "#F85088"; /* magenta */
+static char termcol14[] = "#26B8BB"; /* cyan    */
+static char termcol15[] = "#EBDBB0"; /* white   */
 static char *termcolor[] = {
   termcol0,
   termcol1,
@@ -59,16 +62,17 @@ static char *termcolor[] = {
 };
 static char *colors[][3] = {
        /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor},
+       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor},
 };
 
+/* scratchpads */
 typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "80x25", NULL };
-const char *spcmd2[] = {"st", "-n", "spcalc", "-f", "80x15", "-e", "calc", NULL };
+const char *spcmd2[] = {"st", "-n", "spcalc", "-g", "80x15", "-e", "calc", NULL };
 static Sp scratchpads[] = {
 	/* name          cmd  */
 	{"spterm",       spcmd1},
@@ -116,108 +120,92 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-#define STATUSBAR "dwmblocks"
-
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
 
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier             key              function        argument */
-	// layout
+	/* layout ========================================================*/
 	{ MODKEY,               XK_Tab,          view,           {0} },
 	{ MODKEY,               XK_f,            fullscreen,     {0} },
-	{ MODKEY|Mod1Mask,      XK_comma,        cyclelayout,    {.i = -1 } },
-	{ MODKEY|Mod1Mask,      XK_period,       cyclelayout,    {.i = +1 } },
+	{ MODKEY,               XK_b,            togglebar,      {0} },
 	{ MODKEY,               XK_space,        setlayout,      {0} },
 	{ MODKEY|ShiftMask,     XK_space,        togglefloating, {0} },
-	{ MODKEY,               XK_b,            togglebar,      {0} },
-	//// stack position
-	{ MODKEY|ShiftMask,     XK_Return,       zoom,           {0} },
+	{ MODKEY|ShiftMask,     XK_comma,        cyclelayout,    {.i = -1 } },
+	{ MODKEY|ShiftMask,     XK_period,       cyclelayout,    {.i = +1 } },
+	/* stack position ------------------------------------------------*/
+	{ MODKEY|Mod1Mask,      XK_Return,       zoom,           {0} },
 	{ MODKEY,               XK_j,            focusstack,     {.i = +1 } },
 	{ MODKEY,               XK_k,            focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,     XK_j,            movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,     XK_k,            movestack,      {.i = -1 } },
 	{ MODKEY,               XK_h,            setmfact,       {.f = -0.05} },
 	{ MODKEY,               XK_l,            setmfact,       {.f = +0.05} },
-	//// gaps
+	/* gaps ----------------------------------------------------------*/
 	{ MODKEY,               XK_0,            togglegaps,     {0} },
 	{ MODKEY|Mod1Mask,      XK_0,            defaultgaps,    {0} },
 	{ MODKEY|Mod1Mask,      XK_j,            incrgaps,       {.i = +5 } },
 	{ MODKEY|Mod1Mask,      XK_k,            incrgaps,       {.i = -5 } },
-	// function keys
-	{ MODKEY,               XK_F1,           spawn,          SHCMD("groff -mom ~/.local/src/dwm/mars.mom -Tpdf | zathura -") },
-	{ MODKEY,               XK_F2,           spawn,          {.v = (const char*[]){ "tutorialvids", NULL } } },
-	{ MODKEY,               XK_F3,           spawn,          {.v = (const char*[]){ "displayselect", NULL } } },
-	{ MODKEY,               XK_F4,           spawn,          SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	{ MODKEY,               XK_F5,           spawn,          SHCMD("vpn toggle") },
-	{ MODKEY,               XK_F6,           spawn,          {.v = (const char*[]){ "torwrap", NULL } } },
-	{ MODKEY,               XK_F7,           spawn,          {.v = (const char*[]){ "td-toggle", NULL } } },
-	{ MODKEY,               XK_F8,           spawn,          {.v = (const char*[]){ "mailsync", NULL } } },
-	////////////////////////////////////////////////////////////////////////////////////////////////////////
-	{ MODKEY,               XK_F9,           spawn,          {.v = (const char*[]){ "mounter", NULL } } },
-	{ MODKEY,               XK_F10,          spawn,          {.v = (const char*[]){ "unmounter", NULL } } },
-	{ MODKEY,               XK_F11,          xrdb,           {.v = NULL } },
-	{ MODKEY,               XK_F12,          spawn,          SHCMD("slock") },
-	// recording
-	{ 0,                    XK_Print,        spawn,          SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
-	{ ShiftMask,            XK_Print,        spawn,          {.v = (const char*[]){ "maimpick", NULL } } },
-	{ MODKEY,               XK_Print,        spawn,          {.v = (const char*[]){ "dmenurecord", NULL } } },
-	{ MODKEY|ShiftMask,     XK_Print,        spawn,          {.v = (const char*[]){ "dmenurecord", "kill", NULL } } },
-	{ MODKEY|Mod1Mask,      XK_Print,        spawn,          SHCMD("xdotool type $(grep -v '^#' ~/.local/share/larbs/snippets | dmenu -i -l 50 | cut -d' ' -f1)") },
-	// terminal
+	/* terminal ======================================================*/
 	{ MODKEY,               XK_Return,       spawn,          {.v = termcmd } },
-	{ MODKEY,               XK_d,            spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_u,            togglescratch,  {.ui = 0 } },
 	{ MODKEY,               XK_a,            togglescratch,  {.ui = 1 } },
+	{ MODKEY,               XK_d,            spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_r,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "vifm", NULL } } },
 	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY,               XK_w,            spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
-	{ MODKEY|ShiftMask,     XK_w,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
+	{ MODKEY|Mod1Mask,      XK_w,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
 	{ MODKEY,               XK_n,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "nvim", "-c", "VimwikiIndex", NULL } } },
 	{ MODKEY,               XK_grave,        spawn,          {.v = (const char*[]){ "dmenuunicode", NULL } } },
 	{ MODKEY,               XK_backslash,    spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
 	{ MODKEY,               XK_BackSpace,    spawn,          {.v = (const char*[]){ "sysact", NULL } } },
 	{ MODKEY,               XK_q,            killclient,     {0} },
-	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
 	{ MODKEY|Mod1Mask,      XK_q,            quit,           {1} },
-	// media
+	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
+	/* function keys =================================================*/
+	{ MODKEY,               XK_F1,           spawn,          SHCMD("groff -mom ~/.local/src/dwm/mars.mom -Tpdf | zathura -") },
+	{ MODKEY,               XK_F2,           spawn,          {.v = (const char*[]){ "tutorialvids", NULL } } },
+	{ MODKEY,               XK_F3,           spawn,          {.v = (const char*[]){ "displayselect", NULL } } },
+	{ MODKEY,               XK_F4,           spawn,          SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY,               XK_F5,           quit,           {1} },
+	{ MODKEY,               XK_F6,           xrdb,           {.v = NULL } },
+	{ MODKEY,               XK_F7,           spawn,          {.v = (const char*[]){ "mailsync", NULL } } },
+	{ MODKEY,               XK_F8,           spawn,          SHCMD("vpn toggle") },
+	{ MODKEY,               XK_F9,           spawn,          {.v = (const char*[]){ "mounter", NULL } } },
+	{ MODKEY,               XK_F10,          spawn,          {.v = (const char*[]){ "unmounter", NULL } } },
+	{ MODKEY,               XK_F11,          spawn,          SHCMD("slock") },
+	{ MODKEY,               XK_F12,          spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
+	/* media =========================================================*/
 	{ MODKEY,               XK_c,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
-	{ MODKEY|ShiftMask,     XK_n,            spawn,          SHCMD(TERMINAL " -e newsboat") },
+	{ MODKEY|Mod1Mask,      XK_n,            spawn,          SHCMD(TERMINAL " -e newsboat") },
 	{ MODKEY,               XK_e,            spawn,          SHCMD(TERMINAL " -e neomutt ; rmdir ~/.abook") },
-	{ MODKEY|ShiftMask,     XK_e,            spawn,          SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
-	// music
-	{ MODKEY|ShiftMask,     XK_a,            spawn,          SHCMD(TERMINAL " -e pulsemixer; kill -43 $(pidof dwmblocks)") },
+	{ MODKEY|Mod1Mask,      XK_e,            spawn,          SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
+	/* recording ----------------------------------------------------*/
+	{ 0,                    XK_Print,        spawn,          SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
+	{ ShiftMask,            XK_Print,        spawn,          {.v = (const char*[]){ "maimpick", NULL } } },
+	{ MODKEY,               XK_Print,        spawn,          {.v = (const char*[]){ "dmenurecord", NULL } } },
+	{ MODKEY|Mod1Mask,      XK_Print,        spawn,          SHCMD("xdotool type $(grep -v '^#' ~/.local/share/larbs/snippets | dmenu -i -l 50 | cut -d' ' -f1)") },
+	/* music --------------------------------------------------------*/
+	{ MODKEY|Mod1Mask,      XK_a,            spawn,          SHCMD(TERMINAL " -e pulsemixer; sb-volume refresh") },
 	{ MODKEY,               XK_m,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
-	{ MODKEY,               XK_p,            spawn,          SHCMD("mpc toggle; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_slash,        spawn,          SHCMD("mpc clear; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_comma,        spawn,          SHCMD("mpc prev; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_period,       spawn,          SHCMD("mpc next; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_bracketleft,  spawn,          SHCMD("mpc seek -10; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_bracketright, spawn,          SHCMD("mpc seek +10; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_comma,        spawn,          SHCMD("mpc seek 0%; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_period,       spawn,          SHCMD("mpc repeat; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_bracketleft,  spawn,          SHCMD("mpc seek -60; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_bracketright, spawn,          SHCMD("mpc seek +60; kill -44 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_m,            spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -43 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -43 $(pidof dwmblocks)") },
-	{ MODKEY,               XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -43 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -43 $(pidof dwmblocks)") },
-	{ MODKEY|ShiftMask,     XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -43 $(pidof dwmblocks)") },
-	// tags
-	/*
-	{ MODKEY|ControlMask,           XK_0,      tag,              {.ui = ~0 } }, // ???
-	{ MODKEY,                       XK_0,      view,             {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,           {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,           {.i = +1 } },
-	{ MODKEY,                       XK_comma,  focusmon,         {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,         {.i = +1 } },
-	{ MODKEY,                       XK_i,      incnmaster,       {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,       {.i = -1 } },
-	*/
- 	TAGKEYS(                        XK_1,                        0)
+	{ MODKEY|Mod1Mask,      XK_m,            spawn,          SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; sb-volume refresh") },
+	{ MODKEY,               XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@  5%-; sb-volume refresh") },
+	{ MODKEY,               XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@  5%+; sb-volume refresh") },
+	{ MODKEY|Mod1Mask,      XK_minus,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; sb-volume refresh") },
+	{ MODKEY|Mod1Mask,      XK_equal,        spawn,          SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; sb-volume refresh") },
+	{ MODKEY,               XK_p,            spawn,          SHCMD("mpc toggle;   sb-music refresh") },
+	{ MODKEY,               XK_slash,        spawn,          SHCMD("mpc clear;    sb-music refresh") },
+	{ MODKEY,               XK_comma,        spawn,          SHCMD("mpc prev;     sb-music refresh") },
+	{ MODKEY,               XK_period,       spawn,          SHCMD("mpc next;     sb-music refresh") },
+	{ MODKEY|Mod1Mask,      XK_comma,        spawn,          SHCMD("mpc seek 0%;  sb-music refresh") },
+	{ MODKEY|Mod1Mask,      XK_period,       spawn,          SHCMD("mpc repeat;   sb-music refresh") },
+	{ MODKEY,               XK_bracketleft,  spawn,          SHCMD("mpc seek -10; sb-music refresh") },
+	{ MODKEY,               XK_bracketright, spawn,          SHCMD("mpc seek +10; sb-music refresh") },
+	{ MODKEY|Mod1Mask,      XK_bracketleft,  spawn,          SHCMD("mpc seek -60; sb-music refresh") },
+	{ MODKEY|Mod1Mask,      XK_bracketright, spawn,          SHCMD("mpc seek +60; sb-music refresh") },
+	/* tags =========================================================*/
 	TAGKEYS(                        XK_1,                        0)
 	TAGKEYS(                        XK_2,                        1)
 	TAGKEYS(                        XK_3,                        2)
