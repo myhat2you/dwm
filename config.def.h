@@ -19,6 +19,7 @@ static const int topbar             = 1;  /* 0 means bottom bar */
 /* fonts */
 static const char *fonts[]          = { "monospace:size=10:bold", "Font Awesome 6 Free Solid:size=10" };
 static const char dmenufont[]       = "monospace:size=12:bold";
+static const char vtopfont[]        = "monospace:size=14:bold";
 /* colors */
 static char normbgcolor[]           = "#0B1214"; /* bar background */
 static char normfgcolor[]           = "#BBBBBB"; /* bar foreground */
@@ -154,7 +155,8 @@ static const Key keys[] = {
 	{ MODKEY,               XK_a,            togglescratch,  {.ui = 1 } },
 	{ MODKEY,               XK_d,            spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_r,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "vifm", NULL } } },
-	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "vtop", "-t", "wizard", NULL } } },
+	{ MODKEY|Mod1Mask,      XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "nvtop", NULL } } },
 	{ MODKEY,               XK_w,            spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY|Mod1Mask,      XK_w,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
 	{ MODKEY,               XK_n,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "nvim", "-c", "VimwikiIndex", NULL } } },
