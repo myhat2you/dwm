@@ -18,7 +18,7 @@ static const int showbar            = 1;  /* 0 means no bar */
 static const int topbar             = 1;  /* 0 means bottom bar */
 /* fonts */
 static const char *fonts[]          = { "monospace:size=10:bold", "Font Awesome 6 Free Solid:size=10" };
-static const char dmenufont[]       = "monospace:size=12:bold";
+static const char dmenufont[]       = "monospace:size=10:bold";
 static const char vtopfont[]        = "monospace:size=14:bold";
 /* colors */
 static char normbgcolor[]           = "#0B1214"; /* bar background */
@@ -116,6 +116,7 @@ static const Layout layouts[] = {
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|Mod1Mask,              KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -128,32 +129,36 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgco
 #include "movestack.c"
 static const Key keys[] = {
 	/* modifier             key              function        argument */
-	/* layout ========================================================*/
-	{ MODKEY,               XK_Tab,          view,           {0} },
-	{ MODKEY,               XK_f,            fullscreen,     {0} },
-	{ MODKEY,               XK_b,            togglebar,      {0} },
-	{ MODKEY,               XK_space,        setlayout,      {0} },
-	{ MODKEY|ShiftMask,     XK_space,        togglefloating, {0} },
-	{ MODKEY|ShiftMask,     XK_comma,        cyclelayout,    {.i = -1 } },
-	{ MODKEY|ShiftMask,     XK_period,       cyclelayout,    {.i = +1 } },
-	/* stack position ------------------------------------------------*/
-	{ MODKEY|Mod1Mask,      XK_Return,       zoom,           {0} },
-	{ MODKEY,               XK_j,            focusstack,     {.i = +1 } },
-	{ MODKEY,               XK_k,            focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,     XK_j,            movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,     XK_k,            movestack,      {.i = -1 } },
-	{ MODKEY,               XK_h,            setmfact,       {.f = -0.05} },
-	{ MODKEY,               XK_l,            setmfact,       {.f = +0.05} },
-	/* gaps ----------------------------------------------------------*/
-	{ MODKEY,               XK_0,            togglegaps,     {0} },
-	{ MODKEY|Mod1Mask,      XK_0,            defaultgaps,    {0} },
-	{ MODKEY|Mod1Mask,      XK_j,            incrgaps,       {.i = +5 } },
-	{ MODKEY|Mod1Mask,      XK_k,            incrgaps,       {.i = -5 } },
 	/* terminal ======================================================*/
 	{ MODKEY,               XK_Return,       spawn,          {.v = termcmd } },
 	{ MODKEY,               XK_u,            togglescratch,  {.ui = 0 } },
 	{ MODKEY,               XK_a,            togglescratch,  {.ui = 1 } },
 	{ MODKEY,               XK_d,            spawn,          {.v = dmenucmd } },
+	{ MODKEY,               XK_q,            killclient,     {0} },
+	{ MODKEY|Mod1Mask,      XK_q,            quit,           {1} },
+	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
+	/* stack position ------------------------------------------------*/
+	{ MODKEY|Mod1Mask,      XK_Return,       zoom,           {0} },
+	{ MODKEY,               XK_j,            focusstack,     {.i = +1 } },
+	{ MODKEY,               XK_k,            focusstack,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,      XK_j,            movestack,      {.i = +1 } },
+	{ MODKEY|Mod1Mask,      XK_k,            movestack,      {.i = -1 } },
+	{ MODKEY,               XK_h,            setmfact,       {.f = -0.05} },
+	{ MODKEY,               XK_l,            setmfact,       {.f = +0.05} },
+	/* layout ========================================================*/
+	{ MODKEY,               XK_Tab,          view,           {0} },
+	{ MODKEY,               XK_f,            fullscreen,     {0} },
+	{ MODKEY,               XK_b,            togglebar,      {0} },
+	{ MODKEY,               XK_space,        setlayout,      {0} },
+	{ MODKEY|Mod1Mask,      XK_space,        togglefloating, {0} },
+	{ MODKEY|Mod1Mask,      XK_comma,        cyclelayout,    {.i = -1 } },
+	{ MODKEY|Mod1Mask,      XK_period,       cyclelayout,    {.i = +1 } },
+	/* gaps ----------------------------------------------------------*/
+	{ MODKEY,               XK_0,            togglegaps,     {0} },
+	{ MODKEY|ShiftMask,     XK_0,            defaultgaps,    {0} },
+	{ MODKEY|ShiftMask,     XK_j,            incrgaps,       {.i = +5 } },
+	{ MODKEY|ShiftMask,     XK_k,            incrgaps,       {.i = -5 } },
+	/* programs ======================================================*/
 	{ MODKEY,               XK_r,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "vifm", NULL } } },
 	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "vtop", "-t", "wizard", NULL } } },
 	{ MODKEY|Mod1Mask,      XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "nvtop", NULL } } },
@@ -163,21 +168,18 @@ static const Key keys[] = {
 	{ MODKEY,               XK_grave,        spawn,          {.v = (const char*[]){ "dmenuunicode", NULL } } },
 	{ MODKEY,               XK_backslash,    spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
 	{ MODKEY,               XK_BackSpace,    spawn,          {.v = (const char*[]){ "sysact", NULL } } },
-	{ MODKEY,               XK_q,            killclient,     {0} },
-	{ MODKEY|Mod1Mask,      XK_q,            quit,           {1} },
-	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
 	/* function keys =================================================*/
-	{ MODKEY,               XK_F1,           spawn,          SHCMD("groff -mom ~/.local/src/dwm/mars.mom -Tpdf | zathura -") },
+	{ MODKEY,               XK_F1,           spawn,          {.v = (const char*[]){ "tutorialdoc", NULL } } },
 	{ MODKEY,               XK_F2,           spawn,          {.v = (const char*[]){ "tutorialvids", NULL } } },
 	{ MODKEY,               XK_F3,           spawn,          {.v = (const char*[]){ "displayselect", NULL } } },
-	{ MODKEY,               XK_F4,           spawn,          SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY,               XK_F4,           spawn,          {.v = (const char*[]){ "webcam", NULL } } },
 	{ MODKEY,               XK_F5,           quit,           {1} },
 	{ MODKEY,               XK_F6,           xrdb,           {.v = NULL } },
 	{ MODKEY,               XK_F7,           spawn,          {.v = (const char*[]){ "mailsync", NULL } } },
-	{ MODKEY,               XK_F8,           spawn,          SHCMD("vpn toggle") },
+	{ MODKEY,               XK_F8,           spawn,          {.v = (const char*[]){ "vpn", "toggle", NULL } } },
 	{ MODKEY,               XK_F9,           spawn,          {.v = (const char*[]){ "mounter", NULL } } },
 	{ MODKEY,               XK_F10,          spawn,          {.v = (const char*[]){ "unmounter", NULL } } },
-	{ MODKEY,               XK_F11,          spawn,          SHCMD("slock") },
+	{ MODKEY,               XK_F11,          spawn,          {.v = (const char*[]){ "slock", NULL } } },
 	{ MODKEY,               XK_F12,          spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
 	/* media =========================================================*/
 	{ MODKEY,               XK_c,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
@@ -201,8 +203,6 @@ static const Key keys[] = {
 	{ MODKEY,               XK_slash,        spawn,          SHCMD("mpc clear;    sb-music refresh") },
 	{ MODKEY,               XK_comma,        spawn,          SHCMD("mpc prev;     sb-music refresh") },
 	{ MODKEY,               XK_period,       spawn,          SHCMD("mpc next;     sb-music refresh") },
-	{ MODKEY|Mod1Mask,      XK_comma,        spawn,          SHCMD("mpc seek 0%;  sb-music refresh") },
-	{ MODKEY|Mod1Mask,      XK_period,       spawn,          SHCMD("mpc repeat;   sb-music refresh") },
 	{ MODKEY,               XK_bracketleft,  spawn,          SHCMD("mpc seek -10; sb-music refresh") },
 	{ MODKEY,               XK_bracketright, spawn,          SHCMD("mpc seek +10; sb-music refresh") },
 	{ MODKEY|Mod1Mask,      XK_bracketleft,  spawn,          SHCMD("mpc seek -60; sb-music refresh") },

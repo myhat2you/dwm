@@ -1,0 +1,136 @@
+# misc
+[ ] Kalu - keep Arch Linux up-to-date 
+  https://blog.raw.pm/en/archlinux-kalu/
+
+# dwmblocks
+[x] create fork
+[x] clickable blocks
+[ ] README:
+  [x] patches
+  [ ] scripts
+
+# st
+[x] create fork
+[x] shortcuts
+[x] colors
+[ ] README:
+  [ ] updated shortcuts?
+  [ ] fonts:
+    [ ] how to install
+      - Hack Nerd Font Mono
+      - Font Awesome 
+      - Symbola
+    [ ] config.h diff
+[ ] color pallete
+
+# dwm
+[x] create git repository
+[x] apply patches
+[x] customise:
+  [x] appearance
+  [x] commands & keys
+[ ] README:
+  [x] patches
+  [ ] shortcuts
+    [ ] mod-i mod-alt-i
+    [ ] cfa, cff, etc.
+  [ ] mars.mom
+[ ] color pallete
+
+# tools
+[x] create git repository
+[x] README:
+  [x] commands
+
+# vim
+[ ] create fork of nvchad 
+[ ] README:
+  [ ] requirements:
+    [ ] nerd-fonts
+      - Hack Nerd Font Mono
+      - Font Awesome 
+      - Symbola
+  [ ] commands
+[ ] color pallete
+
+# dotfiles
+[ ] create git repository
+[ ] librewolf config
+[ ] qbittorrent config
+[ ] config:
+  - more below VVV
+[ ] local:
+  [ ] bin:
+    [x] tools
+    [x] statusbar
+    [ ] dmenu
+      - fix mounter script
+  - more below VVV
+[ ] README:
+    [ ] mars.mom
+    [ ] shortcuts
+    [ ] commands
+[ ] color pallete
+    
+# Mars
+[ ] create git repository
+[ ] README:
+  [ ] packages
+  [ ] commands
+[ ] color pallete
+
+# rice
+[ ] create color pallete
+[ ] apply pallete globally
+[ ] README:
+  [ ] color pallete
+
+# luggage
+[ ] create shared partition
+	[ ] Documents
+	[ ] Pictures
+	[ ] Music
+	[ ] Games
+[ ] create sd-card backup
+
+## ~/.LOCAL
+  [ ] bin
+    [ ] dmenu
+    [ ] statusbar
+    [x] tools
+  [ ] share
+    [ ] .password-store
+    [ ] dwm?!
+    [ ] larbs -> mars
+    [ ] newsboat
+    [ ] nvim
+    [ ] ueberzugpp
+    [ ] background.png
+  [ ] src
+    [ ] blocks or dwmblocks?
+    [ ] dwm
+    [ ] mutt-wizard
+    [ ] st
+
+## ~/.CONFIG
+  [ ] sure:
+    - shell
+    - vifm
+    - x11
+    - ncmpcpp
+    - newsboat
+    - cfa, cff, etc.
+  [ ] unsure:
+    - dunst
+    - firefox
+    - mpd
+    - zathura
+    - nvim
+    - qbittorrent
+    - user-dirs.dirs
+  [ ] hmmm:
+    - abook
+  [ ] future:
+    - lazygit
+    - wal
+

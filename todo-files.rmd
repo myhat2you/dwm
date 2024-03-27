@@ -1,0 +1,68 @@
+# dwm
+[x] patches
+[x] config.h
+[ ] README.md
+
+# dwmblocks
+[x] patches
+[x] config.h
+[ ] README.md
+
+# mutt-wizard
+[x] config.h
+[ ] README.md
+
+# st
+[x] config.h
+[ ] README.md
+
+# Voidrice
+[ ] mars.mom
+## config
+[ ] .config/dunst
+[ ] .config/firefox
+[ ] .config/fontconfig
+[ ] .config/gtk-2.0
+[ ] .config/gtk-3.0
+[ ] .config/mpd
+[ ] .config/mpv
+[ ] .config/ncmpcpp
+[ ] .config/newsboat
+[ ] .config/nsxiv/exec
+[ ] .config/nvim
+[ ] .config/pinentry
+[ ] .config/pipewire
+[ ] .config/pulse
+[ ] .config/python
+[ ] .config/shell
+[ ] .config/vifm
+[ ] .config/wal
+[ ] .config/wget
+[ ] .config/x11
+[ ] .config/zathura
+[ ] .config/zsh
+[ ] .config/sxiv
+[ ] .config/mimeapps.list
+[ ] .config/user-dirs.dirs
+
+## local/bin
+[ ] .local/bin/cron
+[ ] .local/bin/cron/README.md
+[ ] .local/bin/cron/checkup
+[ ] .local/bin/cron/crontog
+[ ] .local/bin/cron/newsup
+[x] .local/bin/dmenu
+[x] .local/bin/statusbar
+[x] .local/bin/tools
+
+## local/share
+[ ] .local/share/larbs
+[ ] .local/share/chars
+[ ] .local/share/getkeys
+[ ] .local/share/emoji
+[ ] .local/share/ttymaps.kmap
+[ ] .local/share/bg
+[ ] .local/share/background.jpg
+
+# Larbs
+
