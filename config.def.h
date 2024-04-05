@@ -136,7 +136,7 @@ static const Key keys[] = {
 	{ MODKEY,               XK_d,            spawn,          {.v = dmenucmd } },
 	{ MODKEY,               XK_q,            killclient,     {0} },
 	{ MODKEY|Mod1Mask,      XK_q,            quit,           {1} },
-	{ MODKEY|ShiftMask,     XK_q,            quit,           {0} },
+  { MODKEY|ShiftMask,     XK_q,            quit,           {0} },
 	/* stack position ------------------------------------------------*/
 	{ MODKEY|Mod1Mask,      XK_Return,       zoom,           {0} },
 	{ MODKEY,               XK_j,            focusstack,     {.i = +1 } },
@@ -158,16 +158,6 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_0,            defaultgaps,    {0} },
 	{ MODKEY|ShiftMask,     XK_j,            incrgaps,       {.i = +5 } },
 	{ MODKEY|ShiftMask,     XK_k,            incrgaps,       {.i = -5 } },
-	/* programs ======================================================*/
-	{ MODKEY,               XK_r,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "vifm", NULL } } },
-	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "vtop", "-t", "wizard", NULL } } },
-	{ MODKEY|Mod1Mask,      XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "nvtop", NULL } } },
-	{ MODKEY,               XK_w,            spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
-	{ MODKEY|Mod1Mask,      XK_w,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
-	{ MODKEY,               XK_n,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "nvim", "-c", "VimwikiIndex", NULL } } },
-	{ MODKEY,               XK_grave,        spawn,          {.v = (const char*[]){ "dmenuunicode", NULL } } },
-	{ MODKEY,               XK_backslash,    spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
-	{ MODKEY,               XK_BackSpace,    spawn,          {.v = (const char*[]){ "sysact", NULL } } },
 	/* function keys =================================================*/
 	{ MODKEY,               XK_F1,           spawn,          {.v = (const char*[]){ "tutorialdoc", NULL } } },
 	{ MODKEY,               XK_F2,           spawn,          {.v = (const char*[]){ "tutorialvids", NULL } } },
@@ -181,6 +171,16 @@ static const Key keys[] = {
 	{ MODKEY,               XK_F10,          spawn,          {.v = (const char*[]){ "unmounter", NULL } } },
 	{ MODKEY,               XK_F11,          spawn,          {.v = (const char*[]){ "slock", NULL } } },
 	{ MODKEY,               XK_F12,          spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
+	/* programs ======================================================*/
+	{ MODKEY,               XK_r,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "vifm", NULL } } },
+	{ MODKEY,               XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "vtop", "-t", "wizard", NULL } } },
+	{ MODKEY|Mod1Mask,      XK_i,            spawn,          {.v = (const char*[]){ TERMINAL, "-f", vtopfont, "-e", "nvtop", NULL } } },
+	{ MODKEY,               XK_w,            spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
+	{ MODKEY|Mod1Mask,      XK_w,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "sudo", "nmtui", NULL } } },
+	{ MODKEY,               XK_n,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "nvim", "-c", "VimwikiIndex", NULL } } },
+	{ MODKEY,               XK_grave,        spawn,          {.v = (const char*[]){ "dmenuunicode", NULL } } },
+	{ MODKEY,               XK_backslash,    spawn,          {.v = (const char*[]){ "passmenu", NULL } } },
+	{ MODKEY,               XK_BackSpace,    spawn,          {.v = (const char*[]){ "sysact", NULL } } },
 	/* media =========================================================*/
 	{ MODKEY,               XK_c,            spawn,          {.v = (const char*[]){ TERMINAL, "-e", "profanity", NULL } } },
 	{ MODKEY|Mod1Mask,      XK_n,            spawn,          SHCMD(TERMINAL " -e newsboat") },
