@@ -157,9 +157,7 @@ To type capital letters, hold down the \f(CWShift\fP key\(emthat might sound lik
 .ITEM
 \f(CWMod+r\fP \(en vifm (file browser/manager)
 .ITEM
-\f(CWMod+i\fP \(en vtop (task manager, system monitor, htop but cool)
-.ITEM
-\f(CWMod+Alt+i\fP \(en nvtop (interactive gpu monitor)
+\f(CWMod+i\fP \(en btop (task manager, system monitor, htop but cool)
 .ITEM
 \f(CWMod+w\fP \(en Web browser (LibreWolf by default)
 .ITEM
