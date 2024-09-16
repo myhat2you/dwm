@@ -18,20 +18,20 @@ diff --git a/config.def.h b/config.def.h
 index a2ac963..33efa5b 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -60,6 +60,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn()
- static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+@@ -97,6 +97,7 @@
+ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
  static const char *termcmd[]  = { "st", NULL };
-
+ 
 +#include "movestack.c"
- static Key keys[] = {
+ static const Key keys[] = {
  	/* modifier                     key        function        argument */
  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-@@ -71,6 +72,8 @@ static Key keys[] = {
+@@ -108,6 +109,8 @@
  	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
  	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
  	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
++ { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
++ { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
  	{ MODKEY,                       XK_Return, zoom,           {0} },
  	{ MODKEY,                       XK_Tab,    view,           {0} },
  	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
