@@ -48,9 +48,10 @@ static char *termcolor[] = {
   termcol15,
 };
 static char *colors[][3] = {
-       /*               fg           bg           border   */
-       [SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor },
-       [SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor  },
+       /*                 fg           bg           border   */
+       [SchemeNorm]   = { normfgcolor, normbgcolor, normbordercolor },
+       [SchemeSel]    = { selfgcolor,  selbgcolor,  selbordercolor  },
+       [SchemeTitle]  = { normfgcolor, normbgcolor, normbordercolor },
 };
 
 /* tagging */
